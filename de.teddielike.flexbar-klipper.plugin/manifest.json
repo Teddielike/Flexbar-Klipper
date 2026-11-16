@@ -1,0 +1,1074 @@
+{
+  "name": "Klipper",
+  "uuid": "de.teddielike.flexbar-klipper",
+  "version": "1.0.2",
+  "author": "Christian Sperber",
+  "entry": "backend/plugin.cjs",
+  "description": "Status und Steuerung für 3D-Drucker mit Klipper, Moonraker und Fluidd/Mainsail: Druckfortschritt, Restzeit, Temperaturen, freie Sensoren, Pause, Stopp und Not-Aus.",
+  "repo": "https://github.com/Teddielike/Flexbar-Klipper",
+  "sdk": {
+    "version": "1.0.9"
+  },
+  "software": {
+    "minimumVersion": "1.0.6"
+  },
+  "os": [
+    {
+      "platform": "mac",
+      "minimumVersion": "10.15"
+    },
+    {
+      "platform": "windows",
+      "minimumVersion": "10"
+    }
+  ],
+  "device": [
+    {
+      "name": "flexbar",
+      "version": "1.0.0"
+    }
+  ],
+  "configPage": "settings",
+  "shortcuts": [],
+  "keyLibrary": {
+    "title": "$PluginName",
+    "style": {
+      "icon": "mdi mdi-printer-3d"
+    },
+    "children": [
+      {
+        "title": "$Keys.status.Title",
+        "tip": "$Keys.status.Tip",
+        "cid": "de.teddielike.flexbar-klipper.status",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-printer-3d",
+          "width": 180,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 17,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "label": ""
+        }
+      },
+      {
+        "title": "$Keys.job.Title",
+        "tip": "$Keys.job.Tip",
+        "cid": "de.teddielike.flexbar-klipper.job",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-printer-3d-nozzle",
+          "width": 440,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 9,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 56,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "showFilename": true,
+          "showProgress": true,
+          "showRemaining": true,
+          "showEta": false,
+          "showElapsed": false,
+          "showLayer": false,
+          "stripExtension": true,
+          "maxLength": 26,
+          "remainingMode": "auto",
+          "bar": "image"
+        }
+      },
+      {
+        "title": "$Keys.jobinfo.Title",
+        "tip": "$Keys.jobinfo.Tip",
+        "cid": "de.teddielike.flexbar-klipper.jobinfo",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-progress-clock",
+          "width": 240,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 17,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "field": "progress",
+          "label": "",
+          "showLabel": true,
+          "stripExtension": true,
+          "maxLength": 18,
+          "remainingMode": "auto",
+          "bar": "image"
+        }
+      },
+      {
+        "title": "$Keys.hotend.Title",
+        "tip": "$Keys.hotend.Tip",
+        "cid": "de.teddielike.flexbar-klipper.hotend",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-printer-3d-nozzle-heat",
+          "width": 180,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 17,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "object": "extruder",
+          "showTarget": true,
+          "showPower": false,
+          "colorize": true,
+          "decimals": 0,
+          "gcodeShort": "SET_HEATER_TEMPERATURE HEATER=extruder TARGET=0",
+          "gcodeLong": "SET_HEATER_TEMPERATURE HEATER=extruder TARGET=250",
+          "gcodeIdleOnly": true
+        }
+      },
+      {
+        "title": "$Keys.bed.Title",
+        "tip": "$Keys.bed.Tip",
+        "cid": "de.teddielike.flexbar-klipper.bed",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-radiator",
+          "width": 180,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 17,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "object": "heater_bed",
+          "showTarget": true,
+          "showPower": false,
+          "colorize": true,
+          "decimals": 0,
+          "gcodeShort": "SET_HEATER_TEMPERATURE HEATER=heater_bed TARGET=0",
+          "gcodeLong": "SET_HEATER_TEMPERATURE HEATER=heater_bed TARGET=50",
+          "gcodeIdleOnly": true
+        }
+      },
+      {
+        "title": "$Keys.chamber.Title",
+        "tip": "$Keys.chamber.Tip",
+        "cid": "de.teddielike.flexbar-klipper.chamber",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-home-thermometer-outline",
+          "width": 180,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 17,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "object": "auto",
+          "showTarget": true,
+          "showPower": false,
+          "colorize": true,
+          "decimals": 0,
+          "gcodeShort": "SET_HEATER_TEMPERATURE HEATER=chamber TARGET=0",
+          "gcodeLong": "SET_HEATER_TEMPERATURE HEATER=chamber TARGET=30",
+          "gcodeIdleOnly": true
+        }
+      },
+      {
+        "title": "$Keys.sensor.Title",
+        "tip": "$Keys.sensor.Tip",
+        "cid": "de.teddielike.flexbar-klipper.sensor",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-water-percent",
+          "width": 180,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 17,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "label": "Box",
+          "layout": "inline",
+          "items": [
+            {
+              "object": "",
+              "field": "temperature",
+              "prefix": "",
+              "unit": "",
+              "decimals": 1,
+              "scale": ""
+            }
+          ],
+          "gcodeShort": "",
+          "gcodeLong": "",
+          "gcodeIdleOnly": true
+        }
+      },
+      {
+        "title": "$Keys.pause.Title",
+        "tip": "$Keys.pause.Tip",
+        "cid": "de.teddielike.flexbar-klipper.pause",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-pause",
+          "width": 120,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 17,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "confirm": false
+        }
+      },
+      {
+        "title": "$Keys.cancel.Title",
+        "tip": "$Keys.cancel.Tip",
+        "cid": "de.teddielike.flexbar-klipper.cancel",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-stop",
+          "width": 120,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 17,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "confirm": true
+        }
+      },
+      {
+        "title": "$Keys.estop.Title",
+        "tip": "$Keys.estop.Tip",
+        "cid": "de.teddielike.flexbar-klipper.estop",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-alert-octagon",
+          "width": 120,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#a31515",
+          "fgColor": "#ffffff",
+          "iconPos": {
+            "X": 17,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "confirm": true
+        }
+      },
+      {
+        "title": "$Keys.restart.Title",
+        "tip": "$Keys.restart.Tip",
+        "cid": "de.teddielike.flexbar-klipper.restart",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-restart",
+          "width": 220,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 17,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "confirm": true
+        }
+      },
+      {
+        "title": "$Keys.light.Title",
+        "tip": "$Keys.light.Tip",
+        "cid": "de.teddielike.flexbar-klipper.light",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-lightbulb-outline",
+          "width": 60,
+          "showIcon": true,
+          "showTitle": false,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 40,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 50,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "object": "output_pin caselight",
+          "showText": false,
+          "gcodeShort": "SET_PIN PIN=caselight VALUE=0",
+          "gcodeLong": "SET_PIN PIN=caselight VALUE=1",
+          "gcodeIdleOnly": false
+        }
+      },
+      {
+        "title": "$Keys.cooler.Title",
+        "tip": "$Keys.cooler.Tip",
+        "cid": "de.teddielike.flexbar-klipper.cooler",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-snowflake",
+          "width": 60,
+          "showIcon": true,
+          "showTitle": false,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 40,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 50,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "object": "output_pin polar_cooler",
+          "showText": false,
+          "gcodeShort": "SET_PIN PIN=polar_cooler VALUE=0",
+          "gcodeLong": "SET_PIN PIN=polar_cooler VALUE=1",
+          "gcodeIdleOnly": false
+        }
+      },
+      {
+        "title": "$Keys.box.Title",
+        "tip": "$Keys.box.Tip",
+        "cid": "de.teddielike.flexbar-klipper.box",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-package-variant-closed",
+          "width": 180,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 17,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "box": 1,
+          "showHumidity": true,
+          "showTarget": true,
+          "colorize": true,
+          "decimals": 0,
+          "gcodeShort": "SET_HEATER_TEMPERATURE HEATER=heater_box1 TARGET=0",
+          "gcodeLong": "SET_HEATER_TEMPERATURE HEATER=heater_box1 TARGET=50",
+          "gcodeIdleOnly": false
+        }
+      },
+      {
+        "title": "$Keys.gcode.Title",
+        "tip": "$Keys.gcode.Tip",
+        "cid": "de.teddielike.flexbar-klipper.gcode",
+        "config": {
+          "keyType": "default",
+          "clickable": true,
+          "platform": [
+            "mac",
+            "windows"
+          ]
+        },
+        "style": {
+          "icon": "mdi mdi-console-line",
+          "width": 240,
+          "showIcon": true,
+          "showTitle": true,
+          "showEmoji": false,
+          "fontSize": 15,
+          "iconSize": 30,
+          "bgColor": "#141a22",
+          "fgColor": "#f0f3f6",
+          "iconPos": {
+            "X": 17,
+            "Y": 50
+          },
+          "titlePos": {
+            "X": 62,
+            "Y": 50
+          }
+        },
+        "data": {
+          "printer": "",
+          "gcode": "SET_HEATER_TEMPERATURE HEATER=heater_bed TARGET=60",
+          "confirm": false,
+          "idleOnly": false
+        }
+      }
+    ]
+  },
+  "local": {
+    "de": {
+      "PluginName": "Klipper",
+      "Keys": {
+        "status": {
+          "Title": "Druckerstatus",
+          "Tip": "Zeigt den Zustand des Druckers (Bereit, Druckt, Pausiert, Fehler, Offline)."
+        },
+        "job": {
+          "Title": "Druckauftrag",
+          "Tip": "Aktueller Druck: Name, Fortschritt in %, Restzeit, optional Fertig-um, Layer und Fortschrittsbalken."
+        },
+        "jobinfo": {
+          "Title": "Druck-Einzelwert",
+          "Tip": "Ein einzelner Wert des aktuellen Drucks: Fortschritt, Restzeit, Fertig um, Dateiname, Layer, Filament …"
+        },
+        "hotend": {
+          "Title": "Hotend",
+          "Tip": "Ist- und Solltemperatur des Hotends (extruder). Optional: eigener G-Code für einfaches und doppeltes Tippen."
+        },
+        "bed": {
+          "Title": "Druckbett",
+          "Tip": "Ist- und Solltemperatur der Bauplatte (heater_bed). Optional: eigener G-Code für einfaches und doppeltes Tippen."
+        },
+        "chamber": {
+          "Title": "Bauraum",
+          "Tip": "Bauraumtemperatur – wird automatisch erkannt oder frei gewählt. Optional: eigener G-Code für einfaches und doppeltes Tippen."
+        },
+        "sensor": {
+          "Title": "Sensor (frei)",
+          "Tip": "Beliebige Klipper-Objekte oder Moonraker-Sensoren, z. B. QIDI Box, Feuchtesensoren, Lüfter, MCU-Temperatur. Optional: eigener G-Code für einfaches und doppeltes Tippen."
+        },
+        "pause": {
+          "Title": "Pause\nFortsetzen",
+          "Tip": "Pausiert den laufenden Druck bzw. setzt ihn fort."
+        },
+        "cancel": {
+          "Title": "Stopp",
+          "Tip": "Bricht den laufenden Druck ab (standardmäßig mit Bestätigung durch zweites Tippen)."
+        },
+        "estop": {
+          "Title": "Not-Aus",
+          "Tip": "Sendet M112 / Emergency Stop an Klipper (standardmäßig mit Bestätigung durch zweites Tippen)."
+        },
+        "restart": {
+          "Title": "Firmware-Neustart",
+          "Tip": "FIRMWARE_RESTART – z. B. nach einem Not-Aus."
+        },
+        "light": {
+          "Title": "Beleuchtung",
+          "Tip": "Zeigt, ob die Beleuchtung an ist (output_pin caselight). Einfach tippen: aus, doppelt tippen: an."
+        },
+        "cooler": {
+          "Title": "Polar-Cooler",
+          "Tip": "Zeigt, ob der Polar-Cooler an ist (output_pin polar_cooler). Einfach tippen: aus, doppelt tippen: an."
+        },
+        "box": {
+          "Title": "QIDI Box",
+          "Tip": "Temperatur und Luftfeuchte der QIDI Box (aht20_f heater_boxN), Trocknungs-Soll. Einfach tippen: Trocknen aus, doppelt tippen: an."
+        },
+        "gcode": {
+          "Title": "G-Code / Makro",
+          "Tip": "Sendet eigenen G-Code oder Makros an den Drucker, z. B. Bett vorheizen oder Filament trocknen."
+        }
+      },
+      "UI": {
+        "ma45850db2005": "Konfiguration wird geladen…",
+        "m5a84048ee669": "Konfiguration konnte nicht geladen werden. Bitte die Einstellungsseite erneut öffnen.",
+        "m1852488b6cc2": "Konfiguration gespeichert. Das Backend ist nicht erreichbar; bitte das Plugin neu starten.",
+        "maa591be9b71e": "Hotend",
+        "m9e840bdfa41b": "Druckbett",
+        "mebd0e866e47c": "Bauraum",
+        "mc12fd52b86aa": "Schriftarten für die FlexBar",
+        "me83fae29f977": "Kommagetrennte Prioritätsliste. Erste verfügbare Schrift wird genutzt; leer = Schrift der Taste aus FlexDesigner.",
+        "m3e305e7fdf7b": "Drucker",
+        "mf6cc01cb7edb": "Fehler",
+        "m1200fafc884d": "nicht konfiguriert",
+        "m5e7adf66644d": "Standard (erster Drucker)",
+        "m30988b745948": "Beschriftung",
+        "mae2087ad82c5": "Beschriftung (leer = keine)",
+        "mbbdbb43f8cc0": "Beschriftung (leer = Druckername)",
+        "mf3ba90f0852d": "Eigene Beschriftung (leer = Standard)",
+        "mfe1aa5426ecd": "Beschriftung auf der Taste",
+        "mce984c08718b": "Beschriftung anzeigen",
+        "m361037d69e46": "Bestätigung durch zweites Tippen (3 s)",
+        "m5cbbfd25d962": "Nicht während eines Drucks",
+        "ma1f713cf27ca": "Klipper-Objekt (Heizung / Sensor)",
+        "meebd09bd8634": "Solltemperatur",
+        "mf01c4f31b39f": "Heizleistung %",
+        "m62c2de05eef5": "Farbe nach Status",
+        "mfb5d6f77b36e": "Nachkommastellen",
+        "mfe2d4d9fdb6d": "G-Code beim Tippen (optional)",
+        "m9c557b5e3b92": "G-Code beim Tippen",
+        "m7951c6100fd4": "Einfach tippen – z. B. „aus“",
+        "m7a8cd714eade": "Doppelt tippen – z. B. „an“",
+        "m0989c646f8e6": "Einfach tippen",
+        "m4e6879216bb5": "doppelt tippen",
+        "m9de63c78485e": "Leeren",
+        "m1bc98359b65c": "sendet den ersten Code (nach 0,45 s, um ein zweites Tippen abzuwarten),",
+        "md7a8e160eb04": "den zweiten. Ohne zweiten Code wird der erste sofort gesendet.",
+        "m6785f499bcc2": "den zweiten.",
+        "m421c5296802e": "Ohne zweiten Code wird der erste sofort gesendet.",
+        "me89a9e21ef45": "„",
+        "m2799697a2b1d": "“ ist kein Heizelement – Code bitte selbst eintragen.",
+        "m50017fa79461": "auto = erstes Objekt mit „chamber“ im Namen",
+        "ma99574a8529c": "Standard:",
+        "m57d9eaacaa53": "Tippen pausiert einen laufenden Druck bzw. setzt einen pausierten Druck fort. Das Symbol wechselt automatisch.",
+        "mfd2193ccd5c8": "Bricht den laufenden Druck ab (CANCEL_PRINT-Makro).",
+        "m965fd0667316": "Not-Aus stoppt Klipper sofort (M112). Danach ist ein Firmware-Neustart nötig. Die Bestätigung schützt vor versehentlichem Berühren der FlexBar.",
+        "m4b94da343b1e": "Führt FIRMWARE_RESTART aus – z. B. nach einem Not-Aus oder Fehler.",
+        "m1700c6a9fe8c": "Text statt Lampensymbol",
+        "m83d2ba8a3fe1": "Text statt Schneeflocke",
+        "ma6c48353330e": "Klipper-Objekt für die Anzeige An/Aus",
+        "m79305d39c524": "z. B. output_pin caselight – leer lassen, wenn kein Status angezeigt werden soll",
+        "md6dfb7fbaab0": "Einfach tippen – aus",
+        "m054ca9925bb7": "Doppelt tippen – an",
+        "md333aa7061d6": "Die Lampe leuchtet gelb",
+        "m24f8448bf6af": "Die Schneeflocke wird blau",
+        "ma6e5b6758770": ", sobald der Wert des Objekts größer als 0 ist.",
+        "m949d93ec5f0e": "Die Taste zeigt „An“ grün, sobald der Wert des Objekts größer als 0 ist.",
+        "m03f580896215": "Restzeit-Berechnung",
+        "m57ff53b8e69b": "Angezeigte Informationen",
+        "m689c7511cbbb": "Fortschrittsbalken",
+        "m82bdf3049e91": "Max. Länge Dateiname",
+        "m9e96da01f530": "Max. Länge",
+        "me8394032270b": "Name des Druckteils",
+        "m6337be3c71c5": "Fortschritt %",
+        "m38220f561750": "Restzeit",
+        "m339ec9f419c1": "Fertig um (Uhrzeit)",
+        "m1455afaa4a47": "Bisherige Druckzeit",
+        "m40c19479df33": "Layer x / y",
+        "me9e189573029": ".gcode ausblenden",
+        "m548b8fc4e985": "Automatisch (Slicer + Fortschritt)",
+        "m0f6b38eafc53": "Dateifortschritt",
+        "m1f1d64d37486": "Slicer-Schätzung",
+        "m937e5ec0d8bd": "Filamentverbrauch",
+        "m872e40ff4a06": "Grafischer Balken",
+        "m50de7fb057de": "Textbalken ████░░",
+        "mf7deea092ed8": "Kein Balken",
+        "mabcc1bdd7fda": "Angezeigter Wert",
+        "mca7b2a9dab47": "Druckerstatus",
+        "m2efe8e4b46e7": "Luftfeuchte",
+        "m01c1e3ec10dc": "Trocknungs-Soll",
+        "mf2d5d7ce04cc": "Sensor:",
+        "m261f9e111750": "(Temperatur, Luftfeuchte) · Heizung:",
+        "m384d06f23cfa": "· gefunden: Box",
+        "m7ddacf8cbc6d": "Einfach tippen – Trocknen aus",
+        "md496ee166907": "Doppelt tippen – Trocknen an",
+        "m565e382e1e1f": "Beim Wechsel der Box-Nummer werden",
+        "m97bcf002bf5c": "in Beschriftung und G-Code automatisch angepasst.",
+        "m8b432f62af76": "sendet den ersten Code (nach 0,45 s),",
+        "mcb183dfd288f": "G-Code / Makros (eine Zeile pro Befehl)",
+        "m3d1bd2d9e769": "Vorlagen (ersetzen den Inhalt):",
+        "m32881f4cc82c": "Nur senden, wenn kein Druck läuft",
+        "md9e0b58d4a9b": "Die Befehle gehen über Moonraker (",
+        "m6a6f998b5f8f": ") an Klipper – Makros wie",
+        "mb81d9593a3f6": "oder",
+        "m1380511882f5": "funktionieren ebenso. Wartende Befehle (z. B.",
+        "mdccb82a0d369": ") laufen im Hintergrund weiter; die Taste zeigt „läuft…“, bis Klipper fertig ist.",
+        "m58a1e007849b": "Bett 60 °C",
+        "mfcf34fdd91f6": "PLA vorheizen",
+        "meca7c3c03004": "Box trocknen 50 °C",
+        "m6b0466c29903": "Box aus",
+        "me204a95cc551": "Alle Heizungen aus",
+        "m71889ab91ffd": "Referenzfahrt",
+        "m1ff7aad24f05": "Motoren aus",
+        "mfdaaf8405cd0": "Bett 60°",
+        "m8b22eeac0f1a": "Trocknen",
+        "m090f01864cfc": "Heizung aus",
+        "mc7ed6a8e3910": "Anordnung",
+        "mf3148d80a0d1": "Nebeneinander",
+        "m79693cb796c5": "Untereinander",
+        "m29f3f481ea5d": "Wähle beliebige Klipper-Objekte (z. B.",
+        "mcb4be624273b": ") oder Moonraker-Sensoren (",
+        "m01f17ed12b82": ") und das gewünschte Feld. Bis zu 3 Werte pro Taste – z. B. Temperatur und Luftfeuchte der QIDI Box.",
+        "mc79dd5e8a442": "Objekte laden",
+        "mfe41f9bb1834": "Objekt",
+        "m1dbe99d0e423": "Feld",
+        "m2d6e8f51097c": "Präfix",
+        "md5ba1549d55b": "Einheit",
+        "me97b6dee818e": "Stellen",
+        "m10519914aa6b": "Faktor",
+        "m3828375a2d45": "Entfernen",
+        "m377d0269a297": "Wert hinzufügen",
+        "m329001fee580": "Moonraker-Sensor:",
+        "m64e831ce506d": "Aktueller Wert:",
+        "m3cbc68baf6bb": "Drucker nicht erreichbar",
+        "md2bb8b715d5a": "Klipper / Moonraker – Drucker",
+        "mefddb5692027": "Verbindung zu Moonraker. Direkt: Port 7125 · über Fluidd/Mainsail-Webserver: Port 80 (bzw. 443 mit HTTPS).",
+        "mdcd1d5223f73": "Name",
+        "m82c3bf61e3da": "Interne ID",
+        "m06cd24ce9a42": "Wird von den Tasten referenziert",
+        "ma263a4ef03bc": "IP-Adresse / Hostname",
+        "me58a7f186119": "Selbstsigniertes Zertifikat akzeptieren",
+        "m1b3804d7c6a8": "Ohne Anmeldung",
+        "m293a980bc980": "Benutzer / Passwort",
+        "mfc309e30dbbe": "Benutzername",
+        "ma36c101570cc": "Passwort",
+        "ma5d6a6f03db1": "Verbindung testen",
+        "m313eb280428c": "Verbunden – Klipper:",
+        "mbaff35007a45": "Klipper-Objekte gefunden.",
+        "m2b203c03e542": "Kammersensor:",
+        "m6b9da0e2fabb": "Kein Kammersensor automatisch gefunden.",
+        "mbf15b884edaa": "Drucker hinzufügen",
+        "mf2ad3ad5c432": "Aktualisierungsintervall (ms)",
+        "m144faa9a968d": "Standard 2000 ms",
+        "m3af5500e6042": "Zugangsdaten werden lokal in der Plugin-Konfiguration von FlexDesigner gespeichert.",
+        "mf6b2ff39f540": "Speichern",
+        "md312bb142616": "Keine Antwort vom Plugin",
+        "md62701a76fad": "Klipper-Konfiguration gespeichert",
+        "m0da605e7db26": "Speichern fehlgeschlagen:"
+      }
+    },
+    "en": {
+      "PluginName": "Klipper",
+      "Keys": {
+        "status": {
+          "Title": "Printer status",
+          "Tip": "Shows the printer state (ready, printing, paused, error, offline)."
+        },
+        "job": {
+          "Title": "Print job",
+          "Tip": "Current print: name, progress %, time left, optional ETA, layer and progress bar."
+        },
+        "jobinfo": {
+          "Title": "Print value",
+          "Tip": "A single value of the current print: progress, time left, ETA, file name, layer, filament …"
+        },
+        "hotend": {
+          "Title": "Hotend",
+          "Tip": "Current and target temperature of the hotend (extruder). Optional: custom G-code for single and double tap."
+        },
+        "bed": {
+          "Title": "Build plate",
+          "Tip": "Current and target temperature of the build plate (heater_bed). Optional: custom G-code for single and double tap."
+        },
+        "chamber": {
+          "Title": "Build chamber",
+          "Tip": "Build chamber temperature – auto-detected or freely selectable. Optional: custom G-code for single and double tap."
+        },
+        "sensor": {
+          "Title": "Sensor (custom)",
+          "Tip": "Any Klipper object or Moonraker sensor, e.g. QIDI Box, humidity sensors, fans, MCU temperature. Optional: custom G-code for single and double tap."
+        },
+        "pause": {
+          "Title": "Pause\nResume",
+          "Tip": "Pauses or resumes the current print."
+        },
+        "cancel": {
+          "Title": "Stop",
+          "Tip": "Cancels the current print (confirmation by second tap by default)."
+        },
+        "estop": {
+          "Title": "Emergency stop",
+          "Tip": "Sends an emergency stop to Klipper (confirmation by second tap by default)."
+        },
+        "restart": {
+          "Title": "Firmware restart",
+          "Tip": "FIRMWARE_RESTART – e.g. after an emergency stop."
+        },
+        "light": {
+          "Title": "Case light",
+          "Tip": "Shows whether the case light is on (output_pin caselight). Single tap: off, double tap: on."
+        },
+        "cooler": {
+          "Title": "Polar cooler",
+          "Tip": "Shows whether the polar cooler is on (output_pin polar_cooler). Single tap: off, double tap: on."
+        },
+        "box": {
+          "Title": "QIDI Box",
+          "Tip": "Temperature and humidity of the QIDI Box (aht20_f heater_boxN) and drying target. Single tap: drying off, double tap: on."
+        },
+        "gcode": {
+          "Title": "G-code / macro",
+          "Tip": "Sends custom G-code or macros to the printer, e.g. preheat the bed or dry filament."
+        }
+      },
+      "UI": {
+        "ma45850db2005": "Loading configuration…",
+        "m5a84048ee669": "Could not load the configuration. Please reopen the settings page.",
+        "m1852488b6cc2": "Configuration saved. The backend is unavailable; please restart the plugin.",
+        "maa591be9b71e": "Hotend",
+        "m9e840bdfa41b": "Build plate",
+        "mebd0e866e47c": "Build chamber",
+        "mc12fd52b86aa": "Fonts for the FlexBar",
+        "me83fae29f977": "Comma-separated priority list. Uses the first available font; leave empty to keep the key font from FlexDesigner.",
+        "m3e305e7fdf7b": "Printer",
+        "mf6cc01cb7edb": "Error",
+        "m1200fafc884d": "not configured",
+        "m5e7adf66644d": "Default (first printer)",
+        "m30988b745948": "Label",
+        "mae2087ad82c5": "Label (empty = none)",
+        "mbbdbb43f8cc0": "Label (empty = printer name)",
+        "mf3ba90f0852d": "Custom label (empty = default)",
+        "mfe1aa5426ecd": "Key label",
+        "mce984c08718b": "Show label",
+        "m361037d69e46": "Confirm with a second tap (3 s)",
+        "m5cbbfd25d962": "Not during a print",
+        "ma1f713cf27ca": "Klipper object (heater / sensor)",
+        "meebd09bd8634": "Target temperature",
+        "mf01c4f31b39f": "Heater power %",
+        "m62c2de05eef5": "Color by state",
+        "mfb5d6f77b36e": "Decimal places",
+        "mfe2d4d9fdb6d": "G-code on tap (optional)",
+        "m9c557b5e3b92": "G-code on tap",
+        "m7951c6100fd4": "Single tap – e.g. “off”",
+        "m7a8cd714eade": "Double tap – e.g. “on”",
+        "m0989c646f8e6": "Single tap",
+        "m4e6879216bb5": "double tap",
+        "m9de63c78485e": "Clear",
+        "m1bc98359b65c": "sends the first code (after 0.45 s, to allow a second tap),",
+        "md7a8e160eb04": "sends the second. Without a second code, the first is sent immediately.",
+        "m6785f499bcc2": "sends the second.",
+        "m421c5296802e": "Without a second code, the first is sent immediately.",
+        "me89a9e21ef45": "“",
+        "m2799697a2b1d": "” is not a heater – please enter the code manually.",
+        "m50017fa79461": "auto = first object with “chamber” in its name",
+        "ma99574a8529c": "Default:",
+        "m57d9eaacaa53": "Tap to pause a running print or resume a paused print. The icon changes automatically.",
+        "mfd2193ccd5c8": "Cancels the current print (CANCEL_PRINT macro).",
+        "m965fd0667316": "Emergency stop immediately stops Klipper (M112). A firmware restart is required afterwards. Confirmation protects against accidental touches.",
+        "m4b94da343b1e": "Runs FIRMWARE_RESTART – e.g. after an emergency stop or error.",
+        "m1700c6a9fe8c": "Text instead of light icon",
+        "m83d2ba8a3fe1": "Text instead of snowflake",
+        "ma6c48353330e": "Klipper object for the on/off display",
+        "m79305d39c524": "e.g. output_pin caselight – leave empty to hide the state",
+        "md6dfb7fbaab0": "Single tap – off",
+        "m054ca9925bb7": "Double tap – on",
+        "md333aa7061d6": "The light turns yellow",
+        "m24f8448bf6af": "The snowflake turns blue",
+        "ma6e5b6758770": " when the object value is greater than 0.",
+        "m949d93ec5f0e": "The key shows “On” in green when the object value is greater than 0.",
+        "m03f580896215": "Time-left estimation",
+        "m57ff53b8e69b": "Displayed information",
+        "m689c7511cbbb": "Progress bar",
+        "m82bdf3049e91": "Maximum filename length",
+        "m9e96da01f530": "Maximum length",
+        "me8394032270b": "Print filename",
+        "m6337be3c71c5": "Progress %",
+        "m38220f561750": "Time left",
+        "m339ec9f419c1": "Finish time (ETA)",
+        "m1455afaa4a47": "Elapsed print time",
+        "m40c19479df33": "Layer x / y",
+        "me9e189573029": "Hide .gcode extension",
+        "m548b8fc4e985": "Automatic (slicer + progress)",
+        "m0f6b38eafc53": "File progress",
+        "m1f1d64d37486": "Slicer estimate",
+        "m937e5ec0d8bd": "Filament used",
+        "m872e40ff4a06": "Graphical bar",
+        "m50de7fb057de": "Text bar ████░░",
+        "mf7deea092ed8": "No bar",
+        "mabcc1bdd7fda": "Displayed value",
+        "mca7b2a9dab47": "Printer state",
+        "m2efe8e4b46e7": "Humidity",
+        "m01c1e3ec10dc": "Drying target",
+        "mf2d5d7ce04cc": "Sensor:",
+        "m261f9e111750": "(temperature, humidity) · Heater:",
+        "m384d06f23cfa": "· found: Box",
+        "m7ddacf8cbc6d": "Single tap – drying off",
+        "md496ee166907": "Double tap – drying on",
+        "m565e382e1e1f": "When changing the box number,",
+        "m97bcf002bf5c": "is updated automatically in the label and G-code.",
+        "m8b432f62af76": "sends the first code (after 0.45 s),",
+        "mcb183dfd288f": "G-code / macros (one command per line)",
+        "m3d1bd2d9e769": "Templates (replace the content):",
+        "m32881f4cc82c": "Only send when no print is running",
+        "md9e0b58d4a9b": "Commands are sent via Moonraker (",
+        "m6a6f998b5f8f": ") to Klipper – macros such as",
+        "mb81d9593a3f6": "or",
+        "m1380511882f5": "also work. Waiting commands (e.g.",
+        "mdccb82a0d369": ") continue in the background; the key shows “running…” until Klipper is done.",
+        "m58a1e007849b": "Bed 60 °C",
+        "mfcf34fdd91f6": "Preheat PLA",
+        "meca7c3c03004": "Dry box 50 °C",
+        "m6b0466c29903": "Box off",
+        "me204a95cc551": "All heaters off",
+        "m71889ab91ffd": "Home axes",
+        "m1ff7aad24f05": "Motors off",
+        "mfdaaf8405cd0": "Bed 60°",
+        "m8b22eeac0f1a": "Drying",
+        "m090f01864cfc": "Heaters off",
+        "mc7ed6a8e3910": "Layout",
+        "mf3148d80a0d1": "Side by side",
+        "m79693cb796c5": "Stacked",
+        "m29f3f481ea5d": "Choose any Klipper objects (e.g.",
+        "mcb4be624273b": ") or Moonraker sensors (",
+        "m01f17ed12b82": ") and the desired field. Up to 3 values per key – e.g. QIDI Box temperature and humidity.",
+        "mc79dd5e8a442": "Load objects",
+        "mfe41f9bb1834": "Object",
+        "m1dbe99d0e423": "Field",
+        "m2d6e8f51097c": "Prefix",
+        "md5ba1549d55b": "Unit",
+        "me97b6dee818e": "Decimals",
+        "m10519914aa6b": "Scale",
+        "m3828375a2d45": "Remove",
+        "m377d0269a297": "Add value",
+        "m329001fee580": "Moonraker sensor:",
+        "m64e831ce506d": "Current value:",
+        "m3cbc68baf6bb": "Printer unreachable",
+        "md2bb8b715d5a": "Klipper / Moonraker – Printers",
+        "mefddb5692027": "Moonraker connection. Direct: port 7125 · via Fluidd/Mainsail web server: port 80 (or 443 with HTTPS).",
+        "mdcd1d5223f73": "Name",
+        "m82c3bf61e3da": "Internal ID",
+        "m06cd24ce9a42": "Referenced by the keys",
+        "ma263a4ef03bc": "IP address / hostname",
+        "me58a7f186119": "Accept self-signed certificate",
+        "m1b3804d7c6a8": "No authentication",
+        "m293a980bc980": "Username / password",
+        "mfc309e30dbbe": "Username",
+        "ma36c101570cc": "Password",
+        "ma5d6a6f03db1": "Test connection",
+        "m313eb280428c": "Connected – Klipper:",
+        "mbaff35007a45": "Klipper objects found.",
+        "m2b203c03e542": "Chamber sensor:",
+        "m6b9da0e2fabb": "No chamber sensor detected automatically.",
+        "mbf15b884edaa": "Add printer",
+        "mf2ad3ad5c432": "Refresh interval (ms)",
+        "m144faa9a968d": "Default 2000 ms",
+        "m3af5500e6042": "Credentials are stored locally in the FlexDesigner plugin configuration.",
+        "mf6b2ff39f540": "Save",
+        "md312bb142616": "No response from the plugin",
+        "md62701a76fad": "Klipper configuration saved",
+        "m0da605e7db26": "Saving failed:"
+      }
+    }
+  }
+}

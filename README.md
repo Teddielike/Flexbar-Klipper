@@ -6,7 +6,7 @@ A FlexDesigner plugin for 3D printers running **Klipper and Moonraker**. It disp
 printer status, print progress, temperatures, and sensor readings on the FlexBar,
 and provides configurable keys for common printer controls.
 
-![Example FlexBar layout with Klipper printer status and control keys](Flexbar-Klipper.webp)
+![Example FlexBar layout with Klipper printer status and control keys](Flexbar-Klipper.png)
 
 ## Installation instructions and requirements
 
@@ -108,3 +108,10 @@ npm run plugin:validate
 The manifest and UI files are generated from `tools/gen-manifest.cjs` and
 `ui-src/`. Changes made directly to generated files will be overwritten
 by the next build.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+Klipper, Moonraker, Fluidd, Mainsail, and FlexDesigner are separate projects
+and are not part of this project.

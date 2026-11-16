@@ -1,0 +1,36 @@
+{
+  "name": "flexbar-klipper",
+  "version": "1.0.2",
+  "private": true,
+  "license": "MIT",
+  "author": "Christian Sperber",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Teddielike/Flexbar-Klipper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Teddielike/Flexbar-Klipper/issues"
+  },
+  "homepage": "https://github.com/Teddielike/Flexbar-Klipper",
+  "description": "FlexBar plugin: Klipper / Moonraker / Fluidd printer status and controls",
+  "scripts": {
+    "gen": "node tools/gen-manifest.cjs",
+    "build": "npm run gen && node tools/check-ui.cjs && rollup -c",
+    "test": "node --test tests/",
+    "plugin:validate": "flexcli plugin validate --path de.teddielike.flexbar-klipper.plugin",
+    "plugin:link": "flexcli plugin link --path de.teddielike.flexbar-klipper.plugin --uuid de.teddielike.flexbar-klipper",
+    "plugin:restart": "flexcli plugin restart --uuid de.teddielike.flexbar-klipper",
+    "plugin:debug": "flexcli plugin debug --uuid de.teddielike.flexbar-klipper",
+    "plugin:pack": "flexcli plugin pack --path de.teddielike.flexbar-klipper.plugin",
+    "plugin:unlink": "flexcli plugin unlink --uuid de.teddielike.flexbar-klipper"
+  },
+  "dependencies": {
+    "@eniac/flexdesigner": "^1.0.9"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^28.0.0",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.2",
+    "rollup": "^4.0.2"
+  }
+}
