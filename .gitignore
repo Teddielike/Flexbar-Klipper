@@ -1,6 +1,7 @@
 node_modules
 AGENTS.md
 .DS_Store
+.github/
 de.teddielike.flexbar-klipper.plugin/logs/*.log*
 de.teddielike.flexbar-klipper.plugin/logs/.*audit.json
 *.flexplugin
