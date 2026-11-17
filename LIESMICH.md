@@ -45,6 +45,11 @@ Das Paket enthält keine lokalen Drucker-Zugangsdaten oder Logs.
 5. Gewünschte Tasten aus der Klipper-Bibliothek auf die FlexBar ziehen und ihre
    Einstellungen anpassen. Jede Taste kann einem Drucker zugeordnet werden.
 
+Für die Taste **Druckerstatus** kann unter **Programm / App öffnen (optional)**
+ein Programmname oder Pfad hinterlegt werden. Mit dem Anwendung-öffnen-Symbol
+daneben lässt sich das Programm bequem über den nativen Dateiauswahldialog
+auswählen. Beim Tippen auf die Taste wird das gewählte Programm geöffnet.
+
 ## Langbeschreibung inkl. Funktionserklärung
 
 Das Plugin fragt Drucker- und Sensordaten über die Moonraker-API ab. Die Oberfläche
@@ -55,6 +60,9 @@ hinterlegt und für jede Taste einzeln ausgewählt werden.
 
 - **Druckerstatus:** bereit, druckend, pausiert, fertig, Fehler oder offline; Fehler
   können mit einer Druckermeldung ergänzt werden.
+- **Programm öffnen:** Die Druckerstatus-Taste kann beim Tippen optional ein
+  konfiguriertes Programm wie QIDI Studio oder OrcaSlicer öffnen; die Auswahl
+  ist auch über den nativen Dateiauswahldialog möglich.
 - **Druckauftrag:** Dateiname, Fortschritt, geschätzte Restzeit und Fortschrittsbalken;
   optional auch Fertig-Zeitpunkt, Druckzeit und Layer.
 - **Druck-Einzelwert:** wahlweise Fortschritt, Restzeit, Fertig-Zeitpunkt, Dateiname,

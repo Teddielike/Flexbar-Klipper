@@ -80,6 +80,16 @@ function printerFor(config, data) {
   return config.printers.find(p => p.id === wanted) || config.printers[0] || null;
 }
 
+function programSpec(value, platform = process.platform) {
+  const program = String(value || '').trim();
+  if (!program) return null;
+  // macOS can open both an .app path and an application name through Launch
+  // Services. Other platforms execute the configured program/path directly.
+  return platform === 'darwin'
+    ? { command: 'open', args: ['-a', program] }
+    : { command: program, args: [] };
+}
+
 // ---------------------------------------------------------------- formatting
 function formatDuration(sec) {
   if (sec === null || sec === undefined || !isFinite(sec) || sec < 0) return '--';
@@ -606,7 +616,7 @@ const CONFIRM_DEFAULT = { pause: false, cancel: true, estop: true, restart: true
 function needsConfirm(kind, data) { return bool(data && data.confirm, CONFIRM_DEFAULT[kind] ?? false); }
 
 module.exports = {
-  UUID, kindFromCid, cleanHost, normalizePrinter, normalizeConfig, printerFor,
+  UUID, kindFromCid, cleanHost, normalizePrinter, normalizeConfig, printerFor, programSpec,
   DEFAULT_FONT_FAMILY, normalizeFontFamily,
   formatDuration, formatEta, formatNumber, shortenFilename, textBar,
   jobProgress, remainingTime, layerInfo, printerState, readField, chamberCandidates, heaterObject,

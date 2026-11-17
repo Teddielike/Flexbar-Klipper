@@ -8,6 +8,16 @@
       <v-col v-if="kind === 'status'" cols="12" sm="6">
         <v-text-field v-model="modelValue.data.label" label="Beschriftung (leer = Druckername)" variant="outlined" density="compact" hide-details />
       </v-col>
+      <v-col v-if="kind === 'status'" cols="12">
+        <v-row dense align="center">
+          <v-col>
+            <v-text-field v-model="modelValue.data.program" :label="ui('Programm / App öffnen (optional)')" :placeholder="ui('z. B. QIDI Studio oder /Applications/QIDI Studio.app')" variant="outlined" density="compact" hide-details />
+          </v-col>
+          <v-col cols="auto">
+            <v-btn icon="mdi-open-in-new" variant="text" :aria-label="ui('Anwendung öffnen')" :title="ui('Anwendung öffnen')" @click="chooseProgram" />
+          </v-col>
+        </v-row>
+      </v-col>
       <v-col v-else cols="12" sm="6" class="d-flex align-center">
         <v-checkbox v-model="modelValue.data.confirm" label="Bestätigung durch zweites Tippen (3 s)" density="compact" hide-details />
       </v-col>
@@ -43,7 +53,7 @@ export default {
   created() {
     const d = this.modelValue.data || (this.modelValue.data = {});
     if (d.printer === undefined) d.printer = '';
-    if (KIND === 'status') { if (d.label === undefined) d.label = ''; }
+    if (KIND === 'status') { if (d.label === undefined) d.label = ''; if (d.program === undefined) d.program = ''; }
     else if (d.confirm === undefined) d.confirm = CONFIRM_DEFAULT[KIND];
   },
   async mounted() {
@@ -51,6 +61,14 @@ export default {
       const r = await this.$fd.sendToBackend({ action: 'listPrinters' });
       if (r && r.ok) this.printers = r.printers;
     } catch (_) { /* backend not running */ }
+  },
+  methods: {
+    async chooseProgram() {
+      try {
+        const r = await this.$fd.sendToBackend({ action: 'chooseProgram' });
+        if (r && r.ok && r.path) this.modelValue.data.program = r.path;
+      } catch (_) { /* backend not running */ }
+    },
   },
 };
 </script>

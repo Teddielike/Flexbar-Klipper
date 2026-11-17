@@ -4,6 +4,12 @@ const assert = require('node:assert/strict');
 const zlib = require('node:zlib');
 const core = require('../src/core.js');
 
+test('programSpec opens macOS apps by name and executes paths directly elsewhere', () => {
+  assert.deepEqual(core.programSpec(' QIDI Studio ', 'darwin'), { command: 'open', args: ['-a', 'QIDI Studio'] });
+  assert.deepEqual(core.programSpec('C:\\\\Apps\\\\OrcaSlicer.exe', 'win32'), { command: 'C:\\\\Apps\\\\OrcaSlicer.exe', args: [] });
+  assert.equal(core.programSpec('  ', 'darwin'), null);
+});
+
 const online = (objects, extra = {}) => ({ online: true, klippy: 'ready', objects, objectList: [], sensors: {}, meta: null, ...extra });
 
 test('kindFromCid', () => {

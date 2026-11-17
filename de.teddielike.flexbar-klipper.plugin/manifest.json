@@ -1,7 +1,7 @@
 {
   "name": "Klipper",
   "uuid": "de.teddielike.flexbar-klipper",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Christian Sperber",
   "entry": "backend/plugin.cjs",
   "description": "Status und Steuerung für 3D-Drucker mit Klipper, Moonraker und Fluidd/Mainsail: Druckfortschritt, Restzeit, Temperaturen, freie Sensoren, Pause, Stopp und Not-Aus.",
@@ -69,7 +69,8 @@
         },
         "data": {
           "printer": "",
-          "label": ""
+          "label": "",
+          "program": ""
         }
       },
       {
@@ -726,6 +727,10 @@
         "m30988b745948": "Beschriftung",
         "mae2087ad82c5": "Beschriftung (leer = keine)",
         "mbbdbb43f8cc0": "Beschriftung (leer = Druckername)",
+        "m3b2f5605fdcc": "Programm / App öffnen (optional)",
+        "m8c5a74e36290": "z. B. QIDI Studio oder /Applications/QIDI Studio.app",
+        "md37874412b18": "Programm auswählen",
+        "mf56ee56751c3": "Anwendung öffnen",
         "mf3ba90f0852d": "Eigene Beschriftung (leer = Standard)",
         "mfe1aa5426ecd": "Beschriftung auf der Taste",
         "mce984c08718b": "Beschriftung anzeigen",
@@ -938,6 +943,10 @@
         "m30988b745948": "Label",
         "mae2087ad82c5": "Label (empty = none)",
         "mbbdbb43f8cc0": "Label (empty = printer name)",
+        "m3b2f5605fdcc": "Open program / app (optional)",
+        "m8c5a74e36290": "e.g. QIDI Studio or /Applications/QIDI Studio.app",
+        "md37874412b18": "Choose program",
+        "mf56ee56751c3": "Open application",
         "mf3ba90f0852d": "Custom label (empty = default)",
         "mfe1aa5426ecd": "Key label",
         "mce984c08718b": "Show label",

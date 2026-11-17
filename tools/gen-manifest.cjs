@@ -31,7 +31,7 @@ function key(id, icon, width, data, style = {}, clickable = true) {
 const GESTURE = { gcodeShort: '', gcodeLong: '', gcodeIdleOnly: true };
 
 const children = [
-  key('status', 'mdi mdi-printer-3d', 180, { printer: '', label: '' }),
+  key('status', 'mdi mdi-printer-3d', 180, { printer: '', label: '', program: '' }),
   key('job', 'mdi mdi-printer-3d-nozzle', 440, {
     printer: '', showFilename: true, showProgress: true, showRemaining: true, showEta: false,
     showElapsed: false, showLayer: false, stripExtension: true, maxLength: 26, remainingMode: 'auto', bar: 'image',

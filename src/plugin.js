@@ -1,6 +1,7 @@
 'use strict';
 // FlexBar plugin: Klipper / Moonraker / Fluidd printer status and controls.
 const VERSION = require('../package.json').version;
+const { spawn } = require('node:child_process');
 const { plugin, logger } = require('@eniac/flexdesigner');
 const core = require('./core');
 const { Moonraker } = require('./moonraker');
@@ -341,6 +342,7 @@ plugin.on('plugin.data', async payload => {
     keys.set(id, reg);
     syncLoops();
   }
+  if (kind === 'status' && core.programSpec(reg.key.data.program)) return openProgram(serial, reg.key.data.program);
   const p = core.printerFor(config, reg.key.data);
   if (!p) return { status: 'error', message: t('Kein Drucker konfiguriert') };
   const rt = runtimeFor(p);
@@ -448,6 +450,35 @@ function notify(serial, msg, level) {
   } catch (_) { /* ignore */ }
 }
 
+function openProgram(serial, program) {
+  const spec = core.programSpec(program);
+  if (!spec) return Promise.resolve({ status: 'success' });
+  return new Promise(resolve => {
+    let child;
+    try {
+      child = spawn(spec.command, spec.args, { detached: true, stdio: 'ignore', windowsHide: true });
+    } catch (e) {
+      const message = t('Programm konnte nicht geöffnet werden: {error}', { error: errText(e) });
+      notify(serial, message, 'error');
+      resolve({ status: 'error', message });
+      return;
+    }
+    const fail = e => {
+      const message = t('Programm konnte nicht geöffnet werden: {error}', { error: errText(e) });
+      notify(serial, message, 'error');
+      resolve({ status: 'error', message });
+    };
+    child.once('error', fail);
+    child.once('spawn', () => {
+      child.removeListener('error', fail);
+      child.unref();
+      const message = t('Programm geöffnet');
+      notify(serial, message, 'success');
+      resolve({ status: 'success', message });
+    });
+  });
+}
+
 plugin.on('plugin.config.updated', payload => {
   loadConfig(payload && payload.config !== undefined ? payload.config : undefined);
 });
@@ -466,6 +497,13 @@ plugin.on('ui.message', async payload => {
       case 'listPrinters':
         await ensureConfig();
         return { ok: true, printers: config.printers.map(p => ({ id: p.id, name: p.name, host: p.host })) };
+      case 'chooseProgram': {
+        const result = await plugin.electronAPI('dialog.showOpenDialog', {
+          title: t('Programm auswählen'),
+          properties: ['openFile'],
+        });
+        return { ok: true, canceled: !!result.canceled, path: result.canceled ? '' : (result.filePaths || [])[0] || '' };
+      }
       case 'testConnection': {
         const pc = core.normalizePrinter(payload.printer || {});
         if (!pc.host) return { ok: false, error: t('Keine IP/Hostname angegeben') };

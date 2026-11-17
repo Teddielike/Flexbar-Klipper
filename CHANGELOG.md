@@ -1,3 +1,14 @@
+## [1.0.3] – 2026-11-17
+
+- Der Druckerstatus bietet einen Dateiauswahldialog zum Auswählen des zu
+  öffnenden Programms.
+
+- Der Druckerstatus kann optional ein konfiguriertes Programm oder eine App
+  beim Betätigen öffnen.
+- Die Programmöffnung verwendet keine Shell und unterstützt unter macOS
+  App-Namen bzw. `.app`-Pfade.
+- Der Programmpfad kann über einen nativen Dateiauswahldialog ausgewählt werden.
+
 ## [1.0.2] – 2026-11-16
 
 - Standardbreite des Druckerstatus auf 180 Pixel reduziert.

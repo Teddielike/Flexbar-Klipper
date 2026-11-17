@@ -1,23 +1,23 @@
 'use strict';
 
+var node_module = require('node:module');
 var require$$0$3 = require('util');
 var require$$0$2 = require('os');
 var require$$0$4 = require('stream');
 var require$$0$5 = require('buffer');
 var require$$0$6 = require('events');
 var require$$0$7 = require('fs');
-var require$$1$3 = require('path');
+var require$$1$2 = require('path');
 var require$$3 = require('zlib');
-var require$$1$1 = require('tty');
-var require$$1$2 = require('string_decoder');
+var require$$1 = require('tty');
+var require$$1$1 = require('string_decoder');
 var require$$0$8 = require('http');
-var require$$1$4 = require('https');
+var require$$1$3 = require('https');
 var require$$3$1 = require('crypto');
 var require$$8 = require('url');
 var require$$3$2 = require('net');
 var require$$4 = require('querystring');
 var require$$5 = require('tls');
-var node_module = require('node:module');
 
 var _documentCurrentScript = typeof document !== 'undefined' ? document.currentScript : null;
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
@@ -57,9 +57,12 @@ function getAugmentedNamespace(n) {
 
 var plugin$2 = {};
 
-var version$1 = "1.0.2";
+var version$1 = "1.0.3";
 var require$$0$1 = {
 	version: version$1};
+
+const require$6 = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('plugin.cjs', document.baseURI).href)));
+function __require$5() { return require$6("node:child_process"); }
 
 var winston$1 = {};
 
@@ -3499,7 +3502,7 @@ function requireCommon () {
 }
 
 var version = "3.19.0";
-var require$$2 = {
+var require$$2$1 = {
 	version: version};
 
 var transports = {};
@@ -10855,7 +10858,7 @@ function requireDevelopment () {
 	if (hasRequiredDevelopment) return development;
 	hasRequiredDevelopment = 1;
 	var create = requireDiagnostics();
-	var tty = require$$1$1.isatty(1);
+	var tty = require$$1.isatty(1);
 
 	/**
 	 * Create a new diagnostics logger.
@@ -10924,7 +10927,7 @@ function requireTailFile () {
 	hasRequiredTailFile = 1;
 
 	const fs = require$$0$7;
-	const { StringDecoder } = require$$1$2;
+	const { StringDecoder } = require$$1$1;
 	const { Stream } = requireReadable();
 
 	/**
@@ -11051,7 +11054,7 @@ function requireFile () {
 	hasRequiredFile = 1;
 
 	const fs = require$$0$7;
-	const path = require$$1$3;
+	const path = require$$1$2;
 	const asyncSeries = requireSeries();
 	const zlib = require$$3;
 	const { MESSAGE } = requireTripleBeam();
@@ -11853,7 +11856,7 @@ function requireHttp () {
 	hasRequiredHttp = 1;
 
 	const http = require$$0$8;
-	const https = require$$1$4;
+	const https = require$$1$3;
 	const { Stream } = requireReadable();
 	const TransportStream = requireWinstonTransport();
 	const { configure } = requireSafeStableStringify();
@@ -14591,7 +14594,7 @@ function requireWinston () {
 		 * Expose version. Use `require` method for `webpack` support.
 		 * @type {string}
 		 */
-		exports.version = require$$2.version;
+		exports.version = require$$2$1.version;
 		/**
 		 * Include transports defined by default by winston
 		 * @type {Array}
@@ -21179,7 +21182,7 @@ function requireFileStreamRotator () {
 	 * Module dependencies.
 	 */
 	var fs = require$$0$7;
-	var path = require$$1$3;
+	var path = require$$1$2;
 	var moment = requireMoment();
 	var crypto = require$$3$1;
 
@@ -21875,7 +21878,7 @@ function requireDailyRotateFile () {
 	hasRequiredDailyRotateFile = 1;
 	const fs = require$$0$7;
 	const os = require$$0$2;
-	const path = require$$1$3;
+	const path = require$$1$2;
 	const util = require$$0$3;
 	const zlib = require$$3;
 	const hash = requireObjectHash();
@@ -25276,7 +25279,7 @@ function requireWebsocket () {
 	hasRequiredWebsocket = 1;
 
 	const EventEmitter = require$$0$6;
-	const https = require$$1$4;
+	const https = require$$1$3;
 	const http = require$$0$8;
 	const net = require$$3$2;
 	const querystring = require$$4;
@@ -28769,7 +28772,7 @@ var dist = /*#__PURE__*/Object.freeze({
 	resourcesPath: resourcesPath
 });
 
-var require$$1 = /*@__PURE__*/getAugmentedNamespace(dist);
+var require$$2 = /*@__PURE__*/getAugmentedNamespace(dist);
 
 const require$5 = node_module.createRequire((typeof document === 'undefined' ? require('u' + 'rl').pathToFileURL(__filename).href : (_documentCurrentScript && _documentCurrentScript.tagName.toUpperCase() === 'SCRIPT' && _documentCurrentScript.src || new URL('plugin.cjs', document.baseURI).href)));
 function __require$4() { return require$5("node:zlib"); }
@@ -28816,6 +28819,9 @@ function requireI18n () {
 	  'Kein Benutzername konfiguriert': 'No username configured', 'Login fehlgeschlagen': 'Login failed',
 	  'Nicht autorisiert – API-Key oder Login nötig': 'Unauthorized – API key or login required',
 	  'Zugangsdaten abgelehnt': 'Credentials rejected',
+	  'Programm geöffnet': 'Program opened',
+	  'Programm auswählen': 'Choose program',
+	  'Programm konnte nicht geöffnet werden: {error}': 'Could not open program: {error}',
 	};
 
 	function normalizeLocale(value) {
@@ -28918,6 +28924,16 @@ function requireCore () {
 	function printerFor(config, data) {
 	  const wanted = data && data.printer;
 	  return config.printers.find(p => p.id === wanted) || config.printers[0] || null;
+	}
+
+	function programSpec(value, platform = process.platform) {
+	  const program = String(value || '').trim();
+	  if (!program) return null;
+	  // macOS can open both an .app path and an application name through Launch
+	  // Services. Other platforms execute the configured program/path directly.
+	  return platform === 'darwin'
+	    ? { command: 'open', args: ['-a', program] }
+	    : { command: program, args: [] };
 	}
 
 	// ---------------------------------------------------------------- formatting
@@ -29446,7 +29462,7 @@ function requireCore () {
 	function needsConfirm(kind, data) { return bool(data && data.confirm, CONFIRM_DEFAULT[kind] ?? false); }
 
 	core = {
-	  UUID, kindFromCid, cleanHost, normalizePrinter, normalizeConfig, printerFor,
+	  UUID, kindFromCid, cleanHost, normalizePrinter, normalizeConfig, printerFor, programSpec,
 	  DEFAULT_FONT_FAMILY, normalizeFontFamily,
 	  formatDuration, formatEta, formatNumber, shortenFilename, textBar,
 	  jobProgress, remainingTime, layerInfo, printerState, readField, chamberCandidates, heaterObject,
@@ -29635,7 +29651,8 @@ function requirePlugin () {
 	hasRequiredPlugin = 1;
 	// FlexBar plugin: Klipper / Moonraker / Fluidd printer status and controls.
 	const VERSION = require$$0$1.version;
-	const { plugin, logger } = require$$1;
+	const { spawn } = __require$5();
+	const { plugin, logger } = require$$2;
 	const core = requireCore();
 	const { Moonraker } = requireMoonraker();
 	const { normalizeLocale, translate } = requireI18n();
@@ -29975,6 +29992,7 @@ function requirePlugin () {
 	    keys.set(id, reg);
 	    syncLoops();
 	  }
+	  if (kind === 'status' && core.programSpec(reg.key.data.program)) return openProgram(serial, reg.key.data.program);
 	  const p = core.printerFor(config, reg.key.data);
 	  if (!p) return { status: 'error', message: t('Kein Drucker konfiguriert') };
 	  const rt = runtimeFor(p);
@@ -30082,6 +30100,35 @@ function requirePlugin () {
 	  } catch (_) { /* ignore */ }
 	}
 
+	function openProgram(serial, program) {
+	  const spec = core.programSpec(program);
+	  if (!spec) return Promise.resolve({ status: 'success' });
+	  return new Promise(resolve => {
+	    let child;
+	    try {
+	      child = spawn(spec.command, spec.args, { detached: true, stdio: 'ignore', windowsHide: true });
+	    } catch (e) {
+	      const message = t('Programm konnte nicht geöffnet werden: {error}', { error: errText(e) });
+	      notify(serial, message, 'error');
+	      resolve({ status: 'error', message });
+	      return;
+	    }
+	    const fail = e => {
+	      const message = t('Programm konnte nicht geöffnet werden: {error}', { error: errText(e) });
+	      notify(serial, message, 'error');
+	      resolve({ status: 'error', message });
+	    };
+	    child.once('error', fail);
+	    child.once('spawn', () => {
+	      child.removeListener('error', fail);
+	      child.unref();
+	      const message = t('Programm geöffnet');
+	      notify(serial, message, 'success');
+	      resolve({ status: 'success', message });
+	    });
+	  });
+	}
+
 	plugin.on('plugin.config.updated', payload => {
 	  loadConfig(payload && payload.config !== undefined ? payload.config : undefined);
 	});
@@ -30100,6 +30147,13 @@ function requirePlugin () {
 	      case 'listPrinters':
 	        await ensureConfig();
 	        return { ok: true, printers: config.printers.map(p => ({ id: p.id, name: p.name, host: p.host })) };
+	      case 'chooseProgram': {
+	        const result = await plugin.electronAPI('dialog.showOpenDialog', {
+	          title: t('Programm auswählen'),
+	          properties: ['openFile'],
+	        });
+	        return { ok: true, canceled: !!result.canceled, path: result.canceled ? '' : (result.filePaths || [])[0] || '' };
+	      }
 	      case 'testConnection': {
 	        const pc = core.normalizePrinter(payload.printer || {});
 	        if (!pc.host) return { ok: false, error: t('Keine IP/Hostname angegeben') };

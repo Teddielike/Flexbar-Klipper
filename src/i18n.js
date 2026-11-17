@@ -35,6 +35,9 @@ const english = {
   'Kein Benutzername konfiguriert': 'No username configured', 'Login fehlgeschlagen': 'Login failed',
   'Nicht autorisiert – API-Key oder Login nötig': 'Unauthorized – API key or login required',
   'Zugangsdaten abgelehnt': 'Credentials rejected',
+  'Programm geöffnet': 'Program opened',
+  'Programm auswählen': 'Choose program',
+  'Programm konnte nicht geöffnet werden: {error}': 'Could not open program: {error}',
 };
 
 function normalizeLocale(value) {

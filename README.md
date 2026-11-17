@@ -43,6 +43,11 @@ The package does not include local printer credentials or logs.
 5. Drag the desired keys from the Klipper library onto the FlexBar and adjust their
    settings. Each key can be assigned to a printer.
 
+For the **Printer status** key, enter an application name or path in
+**Open program / app (optional)**. Use the button with the open-application icon
+to choose the program through the native file picker. Tapping the key then opens
+the selected application.
+
 ## Detailed description and features
 
 The plugin retrieves printer and sensor data through the Moonraker API. Its interface
@@ -53,6 +58,9 @@ can be configured, and each key can use a different printer.
 
 - **Printer status:** ready, printing, paused, complete, error, or offline; errors
   can include a message from the printer.
+- **Open a program:** the Printer status key can optionally open a configured
+  application, such as QIDI Studio or OrcaSlicer, when tapped. The application
+  can be selected with the native file picker.
 - **Print job:** filename, progress, estimated time remaining, and a progress bar;
   optionally also the estimated completion time, print duration, and layer.
 - **Single print value:** choose progress, time remaining, completion time, filename,
